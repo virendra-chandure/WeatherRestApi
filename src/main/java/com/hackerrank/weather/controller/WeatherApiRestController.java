@@ -37,13 +37,13 @@ public class WeatherApiRestController {
 		if (date.isPresent() && city.isPresent()) {
 			
 			if(sort.isPresent() && sort.get().equals("-date")) {
-				return Optional.ofNullable(weatherRepository.findByDateAndCityOrderByDateDesc(date.get(), city.get())
+				return Optional.ofNullable(weatherRepository.findByDateAndCityIgnoreCaseOrderByDateDesc(date.get(), city.get())
 						.orElseThrow(() -> new WhetherNotFoundException()));
 			} else if(sort.isPresent() && sort.get().equals("date")){
-				return Optional.ofNullable(weatherRepository.findByDateAndCityOrderByDateAsc(date.get(), city.get())
+				return Optional.ofNullable(weatherRepository.findByDateAndCityIgnoreCaseOrderByDateAsc(date.get(), city.get())
 						.orElseThrow(() -> new WhetherNotFoundException()));
 			} else {
-			return Optional.ofNullable(weatherRepository.findByDateAndCity(date.get(), city.get())
+			return Optional.ofNullable(weatherRepository.findByDateAndCityIgnoreCase(date.get(), city.get())
 					.orElseThrow(() -> new WhetherNotFoundException()));
 			}
 		} else if (date.isPresent()) {
@@ -59,7 +59,7 @@ public class WeatherApiRestController {
 			}
 		} else if (city.isPresent()) {
 			return Optional.ofNullable(
-					weatherRepository.findByCity(city.get()).orElseThrow(() -> new WhetherNotFoundException()));
+					weatherRepository.findByCityIgnoreCase(city.get()).orElseThrow(() -> new WhetherNotFoundException()));
 		} else {
 			return Optional.ofNullable(weatherRepository.findAll());
 		}

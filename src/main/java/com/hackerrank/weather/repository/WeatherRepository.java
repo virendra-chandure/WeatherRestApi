@@ -10,11 +10,11 @@ import com.hackerrank.weather.model.Weather;
 
 @Repository
 public interface WeatherRepository extends JpaRepository<Weather, Integer> {
-	Optional<List<Weather>> findByDateAndCity(String date, String city);
-	Optional<List<Weather>> findByCity(String city);
+	Optional<List<Weather>> findByDateAndCityIgnoreCase(String date, String city);
+	Optional<List<Weather>> findByCityIgnoreCase(String city);
 	Optional<List<Weather>> findByDate(String string);
-	Optional<List<Weather>> findByDateAndCityOrderByDateDesc(String date, String city);
-	Optional<List<Weather>> findByDateAndCityOrderByDateAsc(String date, String city);
+	Optional<List<Weather>> findByDateAndCityIgnoreCaseOrderByDateDesc(String date, String city);
+	Optional<List<Weather>> findByDateAndCityIgnoreCaseOrderByDateAsc(String date, String city);
 	Optional<List<Weather>> findByDateOrderByDateDesc(String date);
 	Optional<List<Weather>> findByDateOrderByDateAsc(String date);
 }
