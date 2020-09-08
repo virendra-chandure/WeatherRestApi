@@ -32,7 +32,7 @@ public class WeatherApiRestController {
 	}
 
 	@GetMapping
-	public Optional<List<Weather>> getWeather(@RequestParam("date") Optional<String> date,
+	public List<Weather> getWeather(@RequestParam("date") Optional<String> date,
 			@RequestParam("city") Optional<String> city, @RequestParam("sort") Optional<String> sort) {
 		if (date.isPresent() && city.isPresent()) {
 
@@ -49,12 +49,18 @@ public class WeatherApiRestController {
 			} else if (sort.isPresent() && sort.get().equals("date")) {
 				weatherRepository.findByDateOrderByDateAsc(date.get());
 			} else {
-				return weatherRepository.findByDate(city.get());
+				return weatherRepository.findByDate(date.get());
 			}
 		} else if (city.isPresent()) {
 			return weatherRepository.findByCityIgnoreCase(city.get());
 		}
-		return Optional.ofNullable(weatherRepository.findAll());
+		if (sort.isPresent() && sort.get().equals("-date")) {
+			return weatherRepository.findAllByOrderByDateDesc();
+		} else if (sort.isPresent() && sort.get().equals("date")) {
+			return weatherRepository.findAllByOrderByDateAsc();
+		} else {
+			return weatherRepository.findAll();
+		}
 
 	}
 
