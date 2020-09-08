@@ -35,34 +35,27 @@ public class WeatherApiRestController {
 	public Optional<List<Weather>> getWeather(@RequestParam("date") Optional<String> date,
 			@RequestParam("city") Optional<String> city, @RequestParam("sort") Optional<String> sort) {
 		if (date.isPresent() && city.isPresent()) {
-			
-			if(sort.isPresent() && sort.get().equals("-date")) {
-				return Optional.ofNullable(weatherRepository.findByDateAndCityIgnoreCaseOrderByDateDesc(date.get(), city.get())
-						.orElseThrow(() -> new WhetherNotFoundException()));
-			} else if(sort.isPresent() && sort.get().equals("date")){
-				return Optional.ofNullable(weatherRepository.findByDateAndCityIgnoreCaseOrderByDateAsc(date.get(), city.get())
-						.orElseThrow(() -> new WhetherNotFoundException()));
+
+			if (sort.isPresent() && sort.get().equals("-date")) {
+				return weatherRepository.findByDateAndCityIgnoreCaseOrderByDateDesc(date.get(), city.get());
+			} else if (sort.isPresent() && sort.get().equals("date")) {
+				weatherRepository.findByDateAndCityIgnoreCaseOrderByDateAsc(date.get(), city.get());
 			} else {
-			return Optional.ofNullable(weatherRepository.findByDateAndCityIgnoreCase(date.get(), city.get())
-					.orElseThrow(() -> new WhetherNotFoundException()));
+				weatherRepository.findByDateAndCityIgnoreCase(date.get(), city.get());
 			}
 		} else if (date.isPresent()) {
-			if(sort.isPresent() && sort.get().equals("-date")) {
-				return Optional.ofNullable(weatherRepository.findByDateOrderByDateDesc(date.get())
-						.orElseThrow(() -> new WhetherNotFoundException()));
-			} else if(sort.isPresent() && sort.get().equals("date")){
-				return Optional.ofNullable(weatherRepository.findByDateOrderByDateAsc(date.get())
-						.orElseThrow(() -> new WhetherNotFoundException()));
+			if (sort.isPresent() && sort.get().equals("-date")) {
+				weatherRepository.findByDateOrderByDateDesc(date.get());
+			} else if (sort.isPresent() && sort.get().equals("date")) {
+				weatherRepository.findByDateOrderByDateAsc(date.get());
 			} else {
-			return Optional.ofNullable(
-					weatherRepository.findByDate(city.get()).orElseThrow(() -> new WhetherNotFoundException()));
+				return weatherRepository.findByDate(city.get());
 			}
 		} else if (city.isPresent()) {
-			return Optional.ofNullable(
-					weatherRepository.findByCityIgnoreCase(city.get()).orElseThrow(() -> new WhetherNotFoundException()));
-		} else {
-			return Optional.ofNullable(weatherRepository.findAll());
+			return weatherRepository.findByCityIgnoreCase(city.get());
 		}
+		return Optional.ofNullable(weatherRepository.findAll());
+
 	}
 
 	@GetMapping("/{id}")
