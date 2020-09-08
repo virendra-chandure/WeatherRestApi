@@ -1,5 +1,6 @@
 package com.hackerrank.weather.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,19 +10,19 @@ import com.hackerrank.weather.model.Weather;
 
 @Repository
 public interface WeatherRepository extends JpaRepository<Weather, Integer> {
-	List<Weather> findByDateAndCityIgnoreCase(String date, String city);
+	List<Weather> findByDateAndCityIgnoreCase(Date date, String city);
 
 	List<Weather> findByCityIgnoreCase(String city);
 
-	List<Weather> findByDate(String date);
+	List<Weather> findByDate(Date date);
 
-	List<Weather> findByDateAndCityIgnoreCaseOrderByDateDesc(String date, String city);
+	List<Weather> findByDateAndCityIgnoreCaseOrderByDateDesc(Date date, String city);
 
-	List<Weather> findByDateAndCityIgnoreCaseOrderByDateAsc(String date, String city);
+	List<Weather> findByDateAndCityIgnoreCaseOrderByDateAsc(Date date, String city);
 
-	List<Weather> findByDateOrderByDateDesc(String date);
+	List<Weather> findByDateOrderByDateDesc(Date date);
 
-	List<Weather> findByDateOrderByDateAsc(String date);
+	List<Weather> findByDateOrderByDateAsc(Date date);
 
 	List<Weather> findAllByOrderByDateDesc();
 

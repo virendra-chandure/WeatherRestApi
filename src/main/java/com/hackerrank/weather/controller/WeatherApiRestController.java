@@ -1,9 +1,11 @@
 package com.hackerrank.weather.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,22 +34,21 @@ public class WeatherApiRestController {
 	}
 
 	@GetMapping
-	public List<Weather> getWeather(@RequestParam("date") Optional<String> date,
+	public List<Weather> getWeather(@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam("date") Optional<Date> date,
 			@RequestParam("city") Optional<String> city, @RequestParam("sort") Optional<String> sort) {
 		if (date.isPresent() && city.isPresent()) {
-
 			if (sort.isPresent() && sort.get().equals("-date")) {
 				return weatherRepository.findByDateAndCityIgnoreCaseOrderByDateDesc(date.get(), city.get());
 			} else if (sort.isPresent() && sort.get().equals("date")) {
-				weatherRepository.findByDateAndCityIgnoreCaseOrderByDateAsc(date.get(), city.get());
+				return weatherRepository.findByDateAndCityIgnoreCaseOrderByDateAsc(date.get(), city.get());
 			} else {
-				weatherRepository.findByDateAndCityIgnoreCase(date.get(), city.get());
+				return weatherRepository.findByDateAndCityIgnoreCase(date.get(), city.get());
 			}
 		} else if (date.isPresent()) {
 			if (sort.isPresent() && sort.get().equals("-date")) {
-				weatherRepository.findByDateOrderByDateDesc(date.get());
+				return weatherRepository.findByDateOrderByDateDesc(date.get());
 			} else if (sort.isPresent() && sort.get().equals("date")) {
-				weatherRepository.findByDateOrderByDateAsc(date.get());
+				return weatherRepository.findByDateOrderByDateAsc(date.get());
 			} else {
 				return weatherRepository.findByDate(date.get());
 			}
