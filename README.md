@@ -49,7 +49,7 @@ Your task is to complete the given project so that it passes all the test cases 
 ## Commands
 - run: 
 ```bash
-mvn clean package; java -jar target/WeatherApiMedium-1.0.jar
+mvn clean package; java -jar target/WeatherRestApi-1.0.jar
 ```
 - install: 
 ```bash

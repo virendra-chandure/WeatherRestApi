@@ -1,4 +1,4 @@
-package com.hackerrank.weather.controller;
+package com.example.weather.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hackerrank.weather.exception.WhetherNotFoundException;
-import com.hackerrank.weather.model.Weather;
-import com.hackerrank.weather.repository.WeatherRepository;
+import com.example.weather.exception.WhetherNotFoundException;
+import com.example.weather.model.Weather;
+import com.example.weather.repository.WeatherRepository;
 
 @RestController
 @RequestMapping("/weather")

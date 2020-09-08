@@ -1,4 +1,4 @@
-package com.hackerrank.weather.model;
+package com.example.weather.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

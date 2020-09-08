@@ -1,4 +1,4 @@
-package com.hackerrank.weather.repository;
+package com.example.weather.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hackerrank.weather.model.Weather;
+import com.example.weather.model.Weather;
 
 @Repository
 public interface WeatherRepository extends JpaRepository<Weather, Integer> {
